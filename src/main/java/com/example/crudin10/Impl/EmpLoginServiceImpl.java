@@ -19,8 +19,8 @@ public class EmpLoginServiceImpl implements EmpLoginService {
     @Override
     public void getLoginCredentials(EmpLogin empLogin) {
         EmpLogin empLogin1 = empLoginRepo.findByName(empLogin.getName());
-        String encodedPass = passwordEncoder.encode(empLogin.getPassword());
-        if(passwordEncoder.matches(empLogin.getPassword(),encodedPass)){
+//        String encodedPass = passwordEncoder.encode(empLogin.getPassword());
+        if(passwordEncoder.matches(empLogin.getPassword(),empLogin1.getPassword())){
             System.out.println("success");
         }
         else{
