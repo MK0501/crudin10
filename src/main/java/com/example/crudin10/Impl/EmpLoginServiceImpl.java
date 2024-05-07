@@ -29,11 +29,4 @@ public class EmpLoginServiceImpl implements EmpLoginService {
 
     }
 
-    @Override
-    public void addEmp() {
-        EmpLogin empLogin = new EmpLogin();
-        empLogin.setName("koks");
-        empLogin.setPassword(passwordEncoder.encode("koksMyLove"));
-        empLoginRepo.save(empLogin);
-    }
 }

@@ -17,8 +17,4 @@ public class EmpLoginContoller {
         empLoginService.getLoginCredentials(empLogin);
     }
 
-    @PostMapping("/save")
-    public void addEmp(){
-        empLoginService.addEmp();
-    }
 }

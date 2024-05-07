@@ -2,9 +2,11 @@ package com.example.crudin10.Model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "employee")
 public class Employee {
     @Id
@@ -17,4 +19,7 @@ public class Employee {
 
     @Column(name = "emp_age")
     private int empAge;
+
+    @Column(name = "emp_password")
+    private String empPassword;
 }

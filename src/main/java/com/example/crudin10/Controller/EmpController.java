@@ -1,5 +1,6 @@
 package com.example.crudin10.Controller;
 
+import com.example.crudin10.DTO.EmpLoginDto;
 import com.example.crudin10.DTO.EmployeeDto;
 import com.example.crudin10.Model.Employee;
 import com.example.crudin10.Service.EmpService;
@@ -34,5 +35,16 @@ public class EmpController {
     @PutMapping("/update/{id}")
     public void updateEmpById(@PathVariable Long id, @RequestBody EmployeeDto employeeDto){
         empService.updateEmp(id, employeeDto);
+    }
+
+    @GetMapping("/hit")
+    public void validateLoginCredentials(@RequestBody EmpLoginDto empLoginDto){
+        empService.getLoginCredentials(empLoginDto);
+    }
+
+    @PostMapping("/addEmp")
+    public void addEmp(@RequestBody EmployeeDto employeeDto){
+        empService.addEmp(employeeDto);
+
     }
 }
