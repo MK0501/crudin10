@@ -1,8 +1,6 @@
 package com.example.crudin10.Controller;
 
-import com.example.crudin10.DTO.EmpLoginDto;
 import com.example.crudin10.DTO.EmployeeDto;
-import com.example.crudin10.Model.Employee;
 import com.example.crudin10.Service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,8 +21,10 @@ public class EmpController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Info", "getting student by id");
         httpHeaders.add("description", "fetching from db");
-//        EmployeeDto employeeDto = empService.getEmpById(id);
-        return ResponseEntity.ok().headers(httpHeaders).body(empService.getEmpById(id));
+        return ResponseEntity
+                .ok()
+                .headers(httpHeaders)
+                .body(empService.getEmpById(id));
     }
 
     @GetMapping("/getAll")
@@ -37,14 +37,30 @@ public class EmpController {
         empService.updateEmp(id, employeeDto);
     }
 
-    @GetMapping("/hit")
-    public void validateLoginCredentials(@RequestBody EmpLoginDto empLoginDto){
-        empService.getLoginCredentials(empLoginDto);
+    @GetMapping("/login")
+    //use form data in post man to set empName and empPassword
+    public ResponseEntity<String> validateLoginCredentials(String empName, String empPassword){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Info","Validating Login Credentials");
+        httpHeaders.add("description","validating employee name and password");
+        empService.getLoginCredentials(empName, empPassword);
+        return ResponseEntity
+                .ok()
+                .headers(httpHeaders)
+                .body("login validated!");
+
     }
 
     @PostMapping("/addEmp")
-    public void addEmp(@RequestBody EmployeeDto employeeDto){
+    public ResponseEntity<String> addEmp(@RequestBody EmployeeDto employeeDto){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Info","Adding Employee");
+        httpHeaders.add("description","inserting new Employee to the database");
         empService.addEmp(employeeDto);
+        return ResponseEntity
+                .ok()
+                .headers(httpHeaders)
+                .body("Employee Added Successfully");
 
     }
 }

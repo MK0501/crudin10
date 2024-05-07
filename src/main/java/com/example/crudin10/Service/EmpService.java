@@ -1,8 +1,6 @@
 package com.example.crudin10.Service;
 
-import com.example.crudin10.DTO.EmpLoginDto;
 import com.example.crudin10.DTO.EmployeeDto;
-import com.example.crudin10.Model.Employee;
 
 import java.util.List;
 
@@ -11,5 +9,5 @@ public interface EmpService {
     public List<EmployeeDto> getAllEmp();
     public void updateEmp(Long id, EmployeeDto employeeDto);
     public void addEmp(EmployeeDto employeeDto);
-    public void getLoginCredentials(EmpLoginDto empLoginDto);
+    public void getLoginCredentials(String empName, String empPassword);
 }

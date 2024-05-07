@@ -5,7 +5,9 @@ import com.example.crudin10.Model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface EmpRepo extends JpaRepository<Employee, Long> {
-    public Employee findByEmpName(String name);
+    public Optional<Employee> findByEmpName(String name);
 }

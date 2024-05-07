@@ -1,12 +1,11 @@
 package com.example.crudin10.Impl;
 
 import com.example.crudin10.CustomException;
-import com.example.crudin10.DTO.EmpLoginDto;
 import com.example.crudin10.DTO.EmployeeDto;
 import com.example.crudin10.EmpRepo.EmpRepo;
-import com.example.crudin10.Model.EmpLogin;
 import com.example.crudin10.Model.Employee;
 import com.example.crudin10.Service.EmpService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class EmpServiceImpl implements EmpService {
 
@@ -60,15 +61,28 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public void getLoginCredentials(EmpLoginDto empLoginDto) {
-        Employee emp = empRepo.findByEmpName(empLoginDto.getEmpName());
-//        String encodedPass = passwordEncoder.encode(empLogin.getPassword());
-        if(passwordEncoder.matches(empLoginDto.getPassword(),emp.getEmpPassword())){
-            System.out.println("success");
-        }
-        else{
-            System.out.println("noo..");
-        }
+    public void getLoginCredentials(String empName, String empPassword) {
+        log.info("validating login credentials");
+        Employee emp = empRepo.findByEmpName(empName).orElseThrow(()-> new CustomException("no employee with name :"+empName));
+                    if (passwordEncoder.matches(empPassword, emp.getEmpPassword())) {
+                        log.info("Login Success");
+                    } else {
+                        log.warn("Invalid Password");
+                    }
+
+//                    or we can do like thi
+        /* emp.ifPresentOrElse(
+//                (e)->{
+                    if (passwordEncoder.matches(empPassword, emp.getEmpPassword())) {
+                        System.out.println("success");
+                    } else {
+                        System.out.println("noo..");
+                    }
+//                },
+//                ()->{
+//                    new CustomException("")
+//                }
+//        );*/
 
     }
 }
