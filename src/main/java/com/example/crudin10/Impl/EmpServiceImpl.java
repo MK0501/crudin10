@@ -61,14 +61,17 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public void getLoginCredentials(String empName, String empPassword) {
+    public String getLoginCredentials(String empName, String empPassword) {
         log.info("validating login credentials");
         Employee emp = empRepo.findByEmpName(empName).orElseThrow(()-> new CustomException("no employee with name :"+empName));
                     if (passwordEncoder.matches(empPassword, emp.getEmpPassword())) {
                         log.info("Login Success");
+                        return "Login Success!";
                     } else {
                         log.warn("Invalid Password");
+                        return "Invalid Password!";
                     }
+
 
 //                    or we can do like thi
         /* emp.ifPresentOrElse(

@@ -9,5 +9,5 @@ public interface EmpService {
     public List<EmployeeDto> getAllEmp();
     public void updateEmp(Long id, EmployeeDto employeeDto);
     public void addEmp(EmployeeDto employeeDto);
-    public void getLoginCredentials(String empName, String empPassword);
+    public String getLoginCredentials(String empName, String empPassword);
 }

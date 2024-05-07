@@ -43,11 +43,10 @@ public class EmpController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Info","Validating Login Credentials");
         httpHeaders.add("description","validating employee name and password");
-        empService.getLoginCredentials(empName, empPassword);
         return ResponseEntity
                 .ok()
                 .headers(httpHeaders)
-                .body("login validated!");
+                .body("login validated! "+empService.getLoginCredentials(empName,empPassword));
 
     }
 
