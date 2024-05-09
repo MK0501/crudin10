@@ -1,0 +1,3 @@
+--implemented employee CRUD 
+--implmented employee login using Bcrypt password Encoder for encoding the password and saving it to db
+--on login of employee, using the passwordEncoder.matches comparing the typed passed and the encoded password in the db
