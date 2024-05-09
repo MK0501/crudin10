@@ -1,5 +1,6 @@
 package com.example.crudin10.DTO;
 
+import com.example.crudin10.Model.Address;
 import lombok.Data;
 
 @Data

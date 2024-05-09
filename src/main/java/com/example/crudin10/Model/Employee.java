@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")
     private Long id;
 
@@ -22,4 +22,9 @@ public class Employee {
 
     @Column(name = "emp_password")
     private String empPassword;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    //here we are using join column so the address table primary key will be placed in the employee table
+    private Address addressObj;
 }

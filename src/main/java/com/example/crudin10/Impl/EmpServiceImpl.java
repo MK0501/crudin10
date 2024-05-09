@@ -3,6 +3,7 @@ package com.example.crudin10.Impl;
 import com.example.crudin10.CustomException;
 import com.example.crudin10.DTO.EmployeeDto;
 import com.example.crudin10.EmpRepo.EmpRepo;
+import com.example.crudin10.Model.Address;
 import com.example.crudin10.Model.Employee;
 import com.example.crudin10.Service.EmpService;
 import lombok.extern.slf4j.Slf4j;
@@ -53,10 +54,28 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public void addEmp(EmployeeDto employeeDto) {
+
+       /* Employee employee1 = employee;
+        employee1.setEmpPassword(passwordEncoder.encode(employee.getEmpPassword()));
+        Address address = new Address();
+        address.setCity("Chennai");
+        address.setStreet("wes cross");
+        employee1.setAddress(address);
+        address.setEmployee(employee1);
+        empRepo.save(employee1);*/
+
         EmployeeDto employeeDto1 = employeeDto;
         employeeDto1.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         Employee emp = modelMapper.map(employeeDto1,Employee.class);
+        //new object of child table should be created and set, otherwise fk wont be mapped
+        Address address = new Address();
+        address.setCity("Chennai");
+        address.setStreet("wes cross");
+//setting emp of address only makes the primary key of employee inserted to foriegn key in address table
+        emp.setAddressObj(address);
+
+        address.setEmployee(emp);
         empRepo.save(emp);
     }
 
