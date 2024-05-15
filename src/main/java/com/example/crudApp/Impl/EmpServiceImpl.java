@@ -53,27 +53,17 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public void addEmp(EmployeeDto employeeDto) {
-
-       /* Employee employee1 = employee;
-        employee1.setEmpPassword(passwordEncoder.encode(employee.getEmpPassword()));
-        Address address = new Address();
-        address.setCity("Chennai");
-        address.setStreet("wes cross");
-        employee1.setAddress(address);
-        address.setEmployee(employee1);
-        empRepo.save(employee1);*/
-
-        EmployeeDto employeeDto1 = employeeDto;
-        employeeDto1.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        Employee emp = modelMapper.map(employeeDto1,Employee.class);
-        //new object of child table should be created and set, otherwise fk wont be mapped
-        Address address = new Address();
-        address.setCity("Chennai");
-        address.setStreet("wes cross");
-//setting emp of address only makes the primary key of employee inserted to foriegn key in address table
+//        EmployeeDto employeeDto1 = employeeDto;
+        //encoding the passward before saving into the db
+//        employeeDto1.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
+        Address address = employeeDto.getAddress();
+//        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        Employee emp = new Employee();
+        emp.setEmpName(employeeDto.getName());
+        emp.setEmpPassword(employeeDto.getPassword());
+        emp.setEmpAge(employeeDto.getAge());
         emp.setAddressObj(address);
-
+        //setting emp of address only makes the primary key of employee inserted to foriegn key in address table
         address.setEmployee(emp);
         empRepo.save(emp);
     }

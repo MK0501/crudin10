@@ -3,14 +3,19 @@ package com.example.crudApp.Controller;
 import com.example.crudApp.CustomException;
 import com.example.crudApp.DTO.EmployeeDto;
 import com.example.crudApp.Service.EmpService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/emp")
@@ -54,7 +59,7 @@ public class EmpController {
     }
 
     @PostMapping("/addEmp")
-    public ResponseEntity<String> addEmp(@RequestBody EmployeeDto employeeDto){
+    public ResponseEntity<String> addEmp(@Valid @RequestBody EmployeeDto employeeDto){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Info","Adding Employee");
         httpHeaders.add("description","inserting new Employee to the database");
@@ -71,4 +76,20 @@ public class EmpController {
     public ResponseEntity handleException(CustomException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleMethodArgumentException(MethodArgumentNotValidException ex){
+        Map<String, String> errorMap = new HashMap<>();
+        ex.getBindingResult()
+                .getAllErrors()
+                .stream()
+                .forEach(err -> {
+                    String field = ((FieldError) err).getField();
+                    String errorMsg = err.getDefaultMessage();
+                    errorMap.put(field, errorMsg);
+                });
+        return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+    }
+
+
 }
