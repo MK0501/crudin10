@@ -14,7 +14,7 @@ public class EmployeeDto {
     @NotNull(message = "employee name is mandatory")
     @NotBlank(message = "employee name cannot be blank")
     private String name;
-    @Max(value = 100, message = "Invalid Age: Exceeds 100 years")
+    @Positive(message = "Invalid age")
     private int age;
     private String password;
     private Address address;
