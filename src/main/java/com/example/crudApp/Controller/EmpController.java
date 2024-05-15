@@ -1,10 +1,13 @@
-package com.example.crudin10.Controller;
+package com.example.crudApp.Controller;
 
-import com.example.crudin10.DTO.EmployeeDto;
-import com.example.crudin10.Service.EmpService;
+import com.example.crudApp.CustomException;
+import com.example.crudApp.DTO.EmployeeDto;
+import com.example.crudApp.Service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -61,5 +64,11 @@ public class EmpController {
                 .headers(httpHeaders)
                 .body("Employee Added Successfully");
 
+    }
+
+    //to show the thrown exception to the user i.e, in the http body
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity handleException(CustomException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

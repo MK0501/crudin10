@@ -1,6 +1,6 @@
-package com.example.crudin10.Service;
+package com.example.crudApp.Service;
 
-import com.example.crudin10.DTO.EmployeeDto;
+import com.example.crudApp.DTO.EmployeeDto;
 
 import java.util.List;
 

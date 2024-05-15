@@ -1,4 +1,4 @@
-package com.example.crudin10.Model;
+package com.example.crudApp.Model;
 
 import jakarta.persistence.*;
 import lombok.Data;

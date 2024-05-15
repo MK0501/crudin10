@@ -1,7 +1,6 @@
-package com.example.crudin10.EmpRepo;
+package com.example.crudApp.EmpRepo;
 
-import com.example.crudin10.DTO.EmployeeDto;
-import com.example.crudin10.Model.Employee;
+import com.example.crudApp.Model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

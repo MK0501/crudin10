@@ -1,4 +1,4 @@
-package com.example.crudin10;
+package com.example.crudApp;
 
 public class CustomException extends RuntimeException{
     public CustomException(String msg){

@@ -1,4 +1,4 @@
-package com.example.crudin10;
+package com.example.crudApp;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
